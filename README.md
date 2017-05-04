@@ -18,5 +18,10 @@ Final Report | Mon 19 Jun
 * [Cayden Howes](https://github.com/cwohowes)
 
 ---
-Feel free to edit this ReadMe file. Markdown tips can be found [here](https://guides.github.com/features/mastering-markdown/) :ok_hand:
+[Here](https://www.raspberrypi.org/documentation/remote-access/) is some documentation 
+about setting up access to the Pi from a remote computer. We can do this sometime.
+This [VNC](https://www.raspberrypi.org/documentation/remote-access/vnc/README.md) thing sounds
+pretty good.
 
+---
+Feel free to edit this ReadMe file. Markdown tips can be found [here](https://guides.github.com/features/mastering-markdown/) :ok_hand:
