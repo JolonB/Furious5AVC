@@ -7,7 +7,7 @@ Repository for the Furious 5 AVC group.
  Task | Due 
 ------|----
 ~~Project Plan~~    | ~~Fri 5 May~~ 
-Progress Report | Mon 12 May 
+Progress Report | Mon 22 May 
 Final Report | Mon 19 Jun 
 
 ### Members
