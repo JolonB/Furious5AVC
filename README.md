@@ -17,6 +17,13 @@ Final Report | Mon 19 Jun
 * [Sopana Lim](https://github.com/Posmil)
 * [Cayden Howes](https://github.com/cwohowes)
 
+### Pi Dimensions
+**L:** 115mm  
+**W:** 70mm  
+**H:** 75mm
+<!--Protip: If you want to do a line break, put 2 spaces at the end of your sentence and press enter. Otherwise, press enter twice to 
+do a new paragraph-->
+
 ### C++ Template
 A template for your C++ code can be found [here](https://github.com/JolonB/Furious5AVC/blob/master/c%2B%2BTemplate.cpp). Make sure
 you have the [E101.h](https://github.com/JolonB/Furious5AVC/blob/master/E101.h) library in the same folder as the code you write.
