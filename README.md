@@ -30,7 +30,7 @@ you have the [E101.h](https://github.com/JolonB/Furious5AVC/blob/master/E101.h) 
 
 ### Cloning/Downloading
 #### Repository
-In the terminal enter: `git clone http://www.github.com/JolonB/Furious5AVC/` or `git clone git@github.com:JolonB/Furious5AVC.git`. If you follow either of these with a file path on the Pi or your PC, it will save it there.
+In the terminal enter: `git clone http://www.github.com/JolonB/Furious5AVC/` or `git clone git@github.com:JolonB/Furious5AVC.git`. If either of these commands is followed by a file path, the repository will be saved to that location.
 
 #### Branch
 If you only want to clone a branch, enter: `git clone -b <branch> git@github.com:JolonB/Furious5AVC.git`.
