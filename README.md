@@ -35,6 +35,10 @@ In the terminal enter: `git clone http://www.github.com/JolonB/Furious5AVC/` or 
 #### Branch
 If you only want to clone a branch, enter: `git clone -b <branch> git@github.com:JolonB/Furious5AVC.git`.
 
+#### File  
+If you only need to clone a single file, enter: `git checkout <edit-id>`, where `<edit-id>` is the 7 character number for the file found
+in the file's history.
+
 Alternatively, you can just press the green Clone or download button in the repo and then press Download ZIP.
 
 ---
