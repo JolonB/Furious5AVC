@@ -5,10 +5,10 @@
 int main(){
   init();
   set_motor(1,102);
-  sleep1(5,0);
   set_motor(2,102); 
-  sleep1(5,0); 
+  sleep1(2,0); 
   set_motor(1,0);
-  sleep1(5,0);
   set_motor(2,0);
 }
+
+//* This code makes both motors move forwards for 2 seconds 
