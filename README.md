@@ -39,13 +39,28 @@ If you only want to clone a branch, enter: `git clone -b <branch> git@github.com
 If you only need to clone a single file, enter: `git checkout <edit-id>`, where `<edit-id>` is the 7 character number for the file found
 in the file's history.
 
-Alternatively, you can just press the green Clone or download button in the repo and then press Download ZIP.
+Alternatively, you can just press the green Clone or download button in the repo and then press Download ZIP, however this doesn't work
+on the Pi because the browser is out of date, so you have to use `git clone`.
 
 ---
-[Here](https://www.raspberrypi.org/documentation/remote-access/) is some documentation 
-about setting up access to the Pi from a remote computer. We can do this sometime.
-This [VNC](https://www.raspberrypi.org/documentation/remote-access/vnc/README.md) thing sounds
-pretty good.
+### Running Code via SSH
+#### SSH
+SSH is pretty neat and we kind of have to be able to use it, so here's the steps for doing it:
+1. Find the IP address of the Pi using `ifconfig` in the terminal. Last time I checked, it was *10.140.30.145*.
+1. SSH into the Pi using `ssh pi@10.140.30.145` in the Linux terminal or by using [PuTTY](http://www.putty.org/) on Windows.
+The password is `pi`.
+1. The files are all in the a folder called *Furious5AVC* in the root. To access this in the terminal simply type `cd Furious5AVC` <!-- cd means change directory --> (case probably matters). To see all of the files in the folder, type `ls`. <!-- ls means list -->
+#### Doing stuff to the code
+Now that you've found the files, there are several things you can do:  
+* To edit a file, type `nano <filename>.cpp` when in the correct directory. This will open a very primitive file editor. To edit stuff 
+use the arrow keys to move the cursor. *ctrl+o* saves the file. Press enter to save it with the current file name. Note: The file
+cannot be run.  
+* If you edit a file or clone it from GitHub, you will need to compile it. Use `g++ -o <executable name> <filename>.cpp -le101`. The 
+executable name doesn't matter, although it's probablt best to name it after the original C++ file.  
+* You cannot run a *.cpp* file. You must compile it first to create an executable. To run the file, type `sudo ./<executable name>`.
+For example, `sudo ./main` will run the main executable (the one with all the code). Make sure you don't forget to type sudo (at least
+ for the first time you run it), otherwise you will get some errors and be forced to restart the terminal and go through the SSH process
+ again.
 
 ---
 Feel free to edit this ReadMe file. Markdown tips can be found [here](https://guides.github.com/features/mastering-markdown/) :ok_hand:
