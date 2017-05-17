@@ -2,7 +2,7 @@
 #include <time.h>
 #include "E101.h"
 
-float kp =0.2; // seems  like a good value (0.2)
+float kp =0.5; // figure out a good value. 0.5 kind of worked
 float ki = 0;
 float kd = 0;
 float sp = 50;
@@ -29,27 +29,29 @@ int colourCamera(){
 		int sumThreshold = 0;
 		int whiteBool = 0;
 		int error = 0;
-		for(int i=1; i<320; i++){
+		for(int i=1; i<320; i++){ // perhaps we could change the number of pixels it detects in the first quadrant to prevent it detecting the wrong line
 			char white = get_pixel(230,i,3);
 			if(white>threshold){
 				whiteBool = 1;
 				if(debug){
 					set_pixel(230, i, 0, 255, 0);
-					}
 				}
+			}
 			else {
 				whiteBool = 0;
 				if(debug){
 					set_pixel(230, i, 255, 0, 0);
-					}
 				}
+			}
 			//sumThreshold = sumThreshold+white;
 			error = error+whiteBool*(i-160);
 			double p_signal = error*kp;
 			motor(p_signal);
 		}
 		//threshold = sumThreshold/320;
-		//display_picture(0,500000);
+		if(debug){
+			display_picture(0,500000);
+		}
 		x++;
 	}
 return 0;
