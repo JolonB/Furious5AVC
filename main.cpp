@@ -2,11 +2,12 @@
 #include <time.h>
 #include "E101.h"
 
+const kp = 0.5;
+const ki = 0;
 
-int motor(int err){
-	double speed = err*64/12880;
-	set_motor(1,64+speed);
-	set_motor(2,64-speed);
+int motor(int speed){
+	set_motor(1,70+speed);
+	set_motor(2,70-speed);
 	/*while(true){
 	set_motor(1,0);
 	set_motor(2,0);
@@ -14,8 +15,7 @@ int motor(int err){
 	return 0;
 }
 
-int main(){ // In the real code, this will be called int colourCamera()
-	init();
+int colourCamera(){ // In the real code, this will be called int colourCamera()
 	int threshold = 50;
 	while(true){
 		take_picture();
@@ -34,13 +34,14 @@ int main(){ // In the real code, this will be called int colourCamera()
 				}
 			sumThreshold = sumThreshold+white;
 			error = error+whiteBool*(i-160);
-			motor(error);
-			printf("%d\n", error);
+			double p_signal = error*kp;
+			motor(p_signal);
 		}
-		//if(sumThreshold/320>50){}
-		threshold = sumThreshold/320; /** I'm not 100% sure about this code, it seems to work decently, but
-		y'know, it could be calculated differently to get a more accurate result. Dividing by 400
-		* also works pretty well. */
-		display_picture(0,500000);
+		threshold = sumThreshold/320;
 	}
+}
+
+int main(){
+	init();
+	colorCamera();
 }
