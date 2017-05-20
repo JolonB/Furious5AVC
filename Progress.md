@@ -18,7 +18,7 @@
 - [x] Centralised file containing all of the code created.
 
 #### Week 4
-- [ ] I part of PID implemented - hopefully the robot should make it around the
+- [ ] D part of PID implemented - hopefully the robot should make it around the
 course properly
 - [ ] Working on getting the robot through the next part of the challenge.
 - [ ] Working on getting the robot through the maze.
