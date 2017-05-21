@@ -85,28 +85,6 @@ int colourCamera(){
 					set_pixel(230, i, 0, 255, 0);
 				}
 			}
-			else {
-				whiteBool = 0;
-				if(debug){
-					set_pixel(230, i, 255, 0, 0);
-				}
-			}
-			//sumThreshold = sumThreshold+white;
-			//error = error+whiteBool*(i-160);
-			//motor(error);
-			//previousError = error;
-			//double p_signal = error*kp; got rid of signal modification here, made a proper method
-			//motor(p_signal);
-		}
-		//threshold = sumThreshold/320;
-		if(debug){
-			display_picture(0,500000);
-		}
-		x++;
-	}
-return error;
-}
-
 void gateOpener(){
 	connect_to_server("130.195.6.196", 1024);
 	send_to_server("Please0");
