@@ -69,22 +69,6 @@ int colourCamera(){
 	return error;
 }
 
-int colourCamera(){
-	int threshold = 100; //50 was too low, if enough light was shined the robot would've read black lines as 1
-	int x = 0;
-	while(true){
-		take_picture();
-		int sumThreshold = 0;
-		int whiteBool = 0;
-		int erorr = 0;
-		for(int i=0; i<320; i++){ // perhaps we could change the number of pixels it detects in the first quadrant to prevent it detecting the wrong line
-			char white = get_pixel(230,i,3);
-			if(white>threshold){
-				whiteBool = 1;
-				if(debug){
-					set_pixel(230, i, 0, 255, 0);
-				}
-			}
 void gateOpener(){
 	connect_to_server("130.195.6.196", 1024);
 	send_to_server("Please0");
@@ -97,7 +81,8 @@ void gateOpener(){
 	password[6+1] = 0; //so the gate opener knows the pass has been terminated
 	
 	for(int i=0; i<50; i++){
-		
+		printf("DEBUG: THE GATE SHOUL'VE OPENED");
+		//delete this whole for loop when the gate opener works
 	}
 }
 
