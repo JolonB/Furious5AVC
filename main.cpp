@@ -10,7 +10,7 @@ bool debug = false;
 
 void motor(int error, int previousError){
 	double signal = turnRatio(error, previousError);
-	//THE SIGNAL ISN'T BEING USED YET, MODIFY IT LATER
+	//THE SIGNAL ISN'T BEING USED YET, MODIFY IT LATER SO THAT IT DOES
 	
 	int speed = 100*err/12880;
 	if(err>=0){
@@ -39,8 +39,6 @@ int colourCamera(){
 		int whiteBool = 0;
 		int numberWhiteBool = 0;
 		for(int i=0; i<320; i++){ 
-			// perhaps we could change the number of pixels it detects in the first quadrant to prevent it detecting the wrong line
-			// just set it down at the white line in the first quadrant
 			char white = get_pixel(230,i,3);
 			if(white>threshold){
 				whiteBool = 1;
@@ -56,23 +54,20 @@ int colourCamera(){
 				}
 			}
 			error = error+whiteBool*(i-160);
+			
 			//Checks the area of where it's seeing white and pulls towards that area
 			if(numWhiteBool > 0){
 				error = error/numWhiteBool;
 			}else{
 				//If the robot can't see any white, it should reverse
-				set_motor(2, -254);
-				set_motor(1, -254);
+				//It reverses fast enough that it hopefully sees white lines again
+				set_motor(2, 254);
+				set_motor(1, 254);
 				Sleep1(0, 5000);
 				stop(2);
 				stop(1);
 			}
-			
-			//motor(error);
-			//double p_signal = error*kp; got rid of signal modification here, made a proper method
-			//motor(p_signal);
 		}
-		//threshold = sumThreshold/320;
 		if(debug){
 			display_picture(0,500000);
 		}
@@ -90,22 +85,23 @@ void gateOpener(){
 	for(int i=0; i<6; i++){
 		givenPassKey[i] = serverResponse[i];
 	}
-	password[6+1] = 0; //so the gate opener knows the pass has been terminated
+	// Passing 0 to show the passcode given has been terminated
+	password[6+1] = 0;
 	
 	for(int i=0; i<50; i++){
 		printf("DEBUG: THE GATE SHOUL'VE OPENED");
-		//delete this whole for loop when the gate opener works
+		// Delete this whole for loop when the gate opener works
 	}
 }
 
-//Keeps checking if the robot is at the end of Q3
+// Keeps checking if the robot is at the end of Q3
+// It just looks for the number of red pixels that pass the threshold
 boolean checkEndQ3(boolean atEndQ3){
 	int threshold = 100;
 	int redBool;
 	int numberRedBool = 0;
 	take_picture();
 	for(int i=0; i<320; i++){
-		//It just looks for the number of red pixels that pass the threshold
 		if(get_pixel(230, i, 0) > threshold){
 			numberRedBool++;
 		}
