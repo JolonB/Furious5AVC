@@ -61,7 +61,11 @@ int colourCamera(){
 				error = error/numWhiteBool;
 			}else{
 				//If the robot can't see any white, it should reverse
-				set_motor(
+				set_motor(2, -254);
+				set_motor(1, -254);
+				Sleep1(0, 5000);
+				stop(2);
+				stop(1);
 			}
 			
 			//motor(error);
