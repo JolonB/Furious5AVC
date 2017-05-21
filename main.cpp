@@ -99,11 +99,9 @@ boolean checkEndQ3(boolean atEndQ3){
 	int numberRedBool = 0;
 	take_picture();
 	for(int i=0; i<320; i++){
+		//It just looks for the number of red pixels that pass the threshold
 		if(get_pixel(230, i, 0) > threshold){
-			redBool = 1;
 			numberRedBool++;
-		}else{
-			redBool = 0;
 		}
 	}
 	if(numberRedBool > 150){
