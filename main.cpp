@@ -56,10 +56,12 @@ int colourCamera(){
 				}
 			}
 			error = error+whiteBool*(i-160);
-			
 			//Checks the area of where it's seeing white and pulls towards that area
 			if(numWhiteBool > 0){
 				error = error/numWhiteBool;
+			}else{
+				//If the robot can't see any white, it should reverse
+				set_motor(
 			}
 			
 			//motor(error);
@@ -124,4 +126,7 @@ int main(){
 		motor(error, previousError);
 		atEndQ3 = checkEndQ3(atEndQ3);
 	}
+	//Stopping motors when it sees red
+	stop(2);
+	stop(1);
 }
