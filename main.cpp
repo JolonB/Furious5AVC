@@ -69,19 +69,6 @@ int colourCamera(){
 	return error;
 }
 
-//Method, not used yet, use and modify as you wish
-//THIS METHOD SCALES THE NORMAL SPEED AND THE ERROR
-//This method uses kp and kd
-//Kd helps the robot damped
-double turnRatio(int error){
-	double pSignal = error*kp;
-	if(previousError!=0){
-		double dSignal = (error-previousError)*kd;	
-	}
-	double finalSignal = pSignal+dSignal;
-	return finalSignal;
-}
-
 int colourCamera(){
 	int threshold = 100; //50 was too low, if enough light was shined the robot would've read black lines as 1
 	int x = 0;
