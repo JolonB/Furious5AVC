@@ -37,25 +37,31 @@ int colourCamera(){
 	take_picture();
 		int sumThreshold = 0;
 		int whiteBool = 0;
-		int erorr = 0;
+		int numberWhiteBool = 0;
 		for(int i=0; i<320; i++){ 
 			// perhaps we could change the number of pixels it detects in the first quadrant to prevent it detecting the wrong line
 			// just set it down at the white line in the first quadrant
 			char white = get_pixel(230,i,3);
 			if(white>threshold){
 				whiteBool = 1;
+				numWhiteBool++;
 				if(debug){
 					set_pixel(230, i, 0, 255, 0);
 				}
 			}
-			else {
+			else{
 				whiteBool = 0;
 				if(debug){
 					set_pixel(230, i, 255, 0, 0);
 				}
 			}
-			//sumThreshold = sumThreshold+white;
 			error = error+whiteBool*(i-160);
+			
+			//Checks the area of where it's seeing white and pulls towards that area
+			if(numWhiteBool > 0){
+				error = error/numWhiteBool;
+			}
+			
 			//motor(error);
 			//double p_signal = error*kp; got rid of signal modification here, made a proper method
 			//motor(p_signal);
@@ -84,6 +90,25 @@ void gateOpener(){
 		printf("DEBUG: THE GATE SHOUL'VE OPENED");
 		//delete this whole for loop when the gate opener works
 	}
+}
+
+boolean checkEndQ3(boolean atEndQ3){
+	int threshold = 100;
+	int redBool;
+	int numberRedBool = 0;
+	take_picture();
+	for(int i=0; i<320; i++){
+		if(get_pixel(230, i, 3) > threshold){
+			redBool = 1;
+			numberRedBool++;
+		}else{
+			redBool = 0;
+		}
+	}
+	if(numberRedBool > 200){
+		atEndQ3 = true;	
+	}
+	return atEndQ3;
 }
 
 int main(){
