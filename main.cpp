@@ -92,6 +92,7 @@ void gateOpener(){
 	}
 }
 
+//Keeps checking if the robot is at the end of Q3
 boolean checkEndQ3(boolean atEndQ3){
 	int threshold = 100;
 	int redBool;
@@ -117,7 +118,7 @@ int main(){
 	int previousError = 0;
 	boolean atEndQ3 = false;
 	
-	//Loops until it hits red patch
+	//Loops until it hits red thing at the end of Q3
 	int previousError = colourCamera();
 	gateOpener();
 	while(!checkEndQ3){
