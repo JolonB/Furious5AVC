@@ -9,8 +9,12 @@ float sp = 50;
 bool debug = false;
 
 void motor(int error, int previousError){
-	//double signal = turnRatio(error, previousError);
+	//Starting here to v_right doesn't compile yet
+	double signal = turnRatio(error, previousError);
 	//THE SIGNAL ISN'T BEING USED YET, MODIFY IT LATER SO THAT IT DOES
+	
+	int v_left = (int) sp+(error*signal);
+	int v_right = (int) sp+(error*signal);
 	
 	/**
 	 * int speed = 100*err/12880;
