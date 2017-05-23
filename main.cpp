@@ -21,6 +21,17 @@ int motor(int err){
 	return 0;
 }
 
+void gate(){
+	char address[15] = {'1','3','0','.','1','9','5','.','6','.','1','9','6'};
+	connect_to_server(address, 1024);
+	char send[24] = {'P','l','e','a','s','e'};
+	send_to_server(send);
+	char pass[24];
+	receive_from_server(pass);
+	send_to_server(pass);
+	return;
+}
+
 int colourCamera(){
 	int threshold = 50;
 	int x = 0;
