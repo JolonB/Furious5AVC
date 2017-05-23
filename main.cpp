@@ -9,18 +9,20 @@ float sp = 50;
 bool debug = false;
 
 void motor(int error, int previousError){
-	double signal = turnRatio(error, previousError);
+	//double signal = turnRatio(error, previousError);
 	//THE SIGNAL ISN'T BEING USED YET, MODIFY IT LATER SO THAT IT DOES
 	
-	int speed = 100*err/12880;
-	if(err>=0){
-	set_motor(2,-(sp+speed)); //left motor
-	set_motor(1,-(sp-2*speed)); //right motor
-	}
-	if(err<0){
-	set_motor(2,-(sp+2*speed));
-	set_motor(1,-(sp-speed));
-	}
+	/**
+	 * int speed = 100*err/12880;
+	 * *if(err>=0){
+	 * set_motor(2,-(sp+speed)); //left motor
+	 * set_motor(1,-(sp-2*speed)); //right motor
+	 * }
+	 * if(err<0){
+	 * set_motor(2,-(sp+2*speed));
+	 * set_motor(1,-(sp-speed));
+	 * }
+	 * */
 }
 
 double turnRatio(int error, int previousError){
@@ -30,19 +32,18 @@ double turnRatio(int error, int previousError){
 	return finalSignal;
 }
 
-int colourCamera(){
+int colourCamera(int error){
 	//50 was too low, if enough light was shined the robot would've read black lines as 1
 	int threshold = 100;
 	int x = 0;
 	take_picture();
-		int sumThreshold = 0;
 		int whiteBool = 0;
 		int numberWhiteBool = 0;
 		for(int i=0; i<320; i++){ 
 			char white = get_pixel(230,i,3);
 			if(white>threshold){
 				whiteBool = 1;
-				numWhiteBool++;
+				numberWhiteBool++;
 				if(debug){
 					set_pixel(230, i, 0, 255, 0);
 				}
@@ -56,14 +57,14 @@ int colourCamera(){
 			error = error+whiteBool*(i-160);
 			
 			//Checks the area of where it's seeing white and pulls towards that area
-			if(numWhiteBool > 0){
-				error = error/numWhiteBool;
+			if(numberWhiteBool > 0){
+				error = error/numberWhiteBool;
 			}else{
 				//If the robot can't see any white, it should reverse
 				//It reverses fast enough that it hopefully sees white lines again
 				set_motor(2, 254);
 				set_motor(1, 254);
-				Sleep1(0, 5000);
+				sleep1(0, 5000);
 				stop(2);
 				stop(1);
 			}
@@ -72,33 +73,23 @@ int colourCamera(){
 			display_picture(0,500000);
 		}
 		x++;
-	}
 	return error;
 }
 
 void gateOpener(){
-	connect_to_server("130.195.6.196", 1024);
-	send_to_server("Please0");
-	char serverResponse[24];
-	recieve_from_server(serverResponse);
-	char givenPassKey[24];
-	for(int i=0; i<6; i++){
-		givenPassKey[i] = serverResponse[i];
-	}
-	// Passing 0 to show the passcode given has been terminated
-	password[6+1] = 0;
-	
-	for(int i=0; i<50; i++){
-		printf("DEBUG: THE GATE SHOUL'VE OPENED");
-		// Delete this whole for loop when the gate opener works
-	}
+	char address[15] = {'1','3','0','.','1','9','5','.','6','.','1','9','6'};
+	connect_to_server(address, 1024);
+	char send[24] = {'P','l','e','a','s','e'};
+	send_to_server(send);
+	char pass[24];
+	receive_from_server(pass);
+	send_to_server(pass);
 }
 
 // Keeps checking if the robot is at the end of Q3
 // It just looks for the number of red pixels that pass the threshold
-boolean checkEndQ3(boolean atEndQ3){
+bool checkEndQ3(bool atEndQ3){
 	int threshold = 100;
-	int redBool;
 	int numberRedBool = 0;
 	take_picture();
 	for(int i=0; i<320; i++){
@@ -116,13 +107,13 @@ int main(){
 	init();
 	int error = 0;
 	int previousError = 0;
-	boolean atEndQ3 = false;
+	bool atEndQ3 = false;
 	
 	//Loops until it hits red thing at the end of Q3
-	int previousError = colourCamera();
+	previousError = colourCamera(previousError);
 	gateOpener();
-	while(!checkEndQ3){
-		error = colourCamera();
+	while(!atEndQ3){
+		error = colourCamera(error);
 		motor(error, previousError);
 		atEndQ3 = checkEndQ3(atEndQ3);
 	}
