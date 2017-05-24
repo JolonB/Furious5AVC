@@ -7,7 +7,7 @@ Repository for the Furious 5 AVC group.
  Task | Due 
 ------|----
 ~~Project Plan~~    | ~~Fri 5 May~~ 
-Progress Report | Mon 22 May 
+~~Progress Report~~ | ~~Mon 22 May~~ 
 Final Report | Mon 19 Jun 
 
 ### Members
@@ -22,7 +22,7 @@ Final Report | Mon 19 Jun
 **W:** 70mm  
 **H:** 75mm
 <!--Protip: If you want to do a line break, put 2 spaces at the end of your sentence and press enter. Otherwise, press enter twice to 
-do a new paragraph-->
+create a new paragraph-->
 
 ### C++ Template
 A template for your C++ code can be found [here](https://github.com/JolonB/Furious5AVC/blob/master/c%2B%2BTemplate.cpp). Make sure
