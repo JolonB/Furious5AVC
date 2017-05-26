@@ -30,7 +30,7 @@ you have the [E101.h](https://github.com/JolonB/Furious5AVC/blob/master/E101.h) 
 
 ### Cloning/Downloading
 #### Repository
-In the terminal enter: `git clone http://www.github.com/JolonB/Furious5AVC/` or `git clone git@github.com:JolonB/Furious5AVC.git`. If you follow either of these with a file path on the Pi or your PC, it will save it there.
+In the terminal enter: `git clone http://www.github.com/JolonB/Furious5AVC/` or `git clone git@github.com:JolonB/Furious5AVC.git`. If you follow either of these with a file path on the Pi or your PC, it will save it there (e.g. `git clone http://www.github.com/JolonB/Furious5AVC/ Desktop/AVC/<foldername>`).
 
 #### Branch
 If you only want to clone a branch, enter: `git clone -b <branch> git@github.com:JolonB/Furious5AVC.git`.
@@ -45,11 +45,12 @@ on the Pi because the browser is out of date, so you have to use `git clone`.
 ---
 ### Running Code via SSH
 #### SSH
+*Note: The directory is now on the desktop. These instructions have been updated to match this.*
 SSH is pretty neat and we kind of have to be able to use it, so here's the steps for doing it:
 1. Find the IP address of the Pi using `ifconfig` in the terminal. Last time I checked, it was *10.140.30.145*.
 1. SSH into the Pi using `ssh pi@10.140.30.145` in the Linux terminal or by using [PuTTY](http://www.putty.org/) on Windows.
 The password is `pi`.
-1. The files are all in the a folder called *Furious5AVC* in the root. To access this in the terminal simply type `cd Furious5AVC` <!-- cd means change directory --> (case probably matters). To see all of the files in the folder, type `ls`. <!-- ls means list -->
+1. The files are all in the a folder called *Furious5AVC* in the root. To access this in the terminal simply type `cd Desktop/AVC/WorkingCode` <!-- cd means change directory --> (case matters). To see all of the files in the folder, type `ls`. <!-- ls means list -->
 #### Doing stuff to the code
 Now that you've found the files, there are several things you can do:  
 * To edit a file, type `nano <filename>.cpp` when in the correct directory. This will open a very primitive file editor. To edit stuff 
