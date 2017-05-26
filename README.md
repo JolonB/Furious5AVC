@@ -45,7 +45,7 @@ on the Pi because the browser is out of date, so you have to use `git clone`.
 ---
 ### Running Code via SSH
 #### SSH
-*Note: The directory is now on the desktop. These instructions have been updated to match this.*
+*Note: The directory is now on the desktop. These instructions have been updated to match this.*  
 SSH is pretty neat and we kind of have to be able to use it, so here's the steps for doing it:
 1. Find the IP address of the Pi using `ifconfig` in the terminal. Last time I checked, it was *10.140.30.145*.
 1. SSH into the Pi using `ssh pi@10.140.30.145` in the Linux terminal or by using [PuTTY](http://www.putty.org/) on Windows.
