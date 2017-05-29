@@ -33,7 +33,7 @@ void motor(int err){
 	else if(numWhite==0){
 		set_motor(1,-turn90);
 		set_motor(2,turn90);
-		sleep(turnSleepS, turnSleepMs);
+		sleep1(turnSleepS, turnSleepMs);
 		set_motor(1,0);
 		set_motor(2,0);
 	}
