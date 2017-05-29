@@ -4,30 +4,43 @@
 #include <time.h>
 #include "E101.h"
 
-float kp =0.3; // Figure out a good value. 0.3 is nice.
+float kp = 0.3; // Figure out a good value. 0.3 is nice.
 float kd = 0; // I guess this isn;t getting implemented?
 int sp = 50; // May need to be adjusted if conditions change slightly.
 int threshold = 50; // Could be changed to 100 if we feel it's necessary.
+int numWhite = 0; //counts the number of white pixels in one row of an image.
+bool atEndQ3 = false; //used to tell the program if it has finished quadrant 3.
+int numRed = 0; //counts the number of red pixels.
+int turn90 = 50; //speed when turning 90 degrees.
+int turnSleepS = 0; //time (in seconds) it turns for.
+int turnSleepMs = 700000; //time (in ms) it turns for.
 
-int motor(int err, int x){
+// Run the motor using the error signal value.
+void motor(int err){
 	int speed = 100*err/12880;
-	if(x<10){
-	set_motor(1, sp);
-	set_motor(2, sp);
-//	sleep1(0,500);
+	if(numWhite<10 && numWhite>0){
+		set_motor(1, sp); //right
+		set_motor(2, sp); //left
 	}
 	else if(err>=0){
-	set_motor(2,-(sp+speed)); //left motor
-	set_motor(1,-(sp-2*speed)); //right motor
+		set_motor(2,-(sp+speed)); //left motor
+		set_motor(1,-(sp-2*speed)); //right motor
 	}
 	else if(err<0){
-	set_motor(2,-(sp+2*speed));
-	set_motor(1,-(sp-speed));
+		set_motor(2,-(sp+2*speed)); //left
+		set_motor(1,-(sp-speed)); //right
 	}
-	return 0;
+	else if(numWhite==0){
+		set_motor(1,-turn90);
+		set_motor(2,turn90);
+		sleep(turnSleepS, turnSleepMs);
+		set_motor(1,0);
+		set_motor(2,0);
+	}
 }
 
-int gateOpener(){
+// Open the gate.
+void gateOpener(){
 	char address[15] = {'1','3','0','.','1','9','5','.','6','.','1','9','6'};
 	connect_to_server(address, 1024);
 	char send[24] = {'P','l','e','a','s','e'};
@@ -35,17 +48,18 @@ int gateOpener(){
 	char pass[24];
 	receive_from_server(pass);
 	send_to_server(pass);
-	return 1;
 }
 
-
+// Check colour values of pixels and calculate error.
 int colourCamera(){
 	take_picture();
-	int numWhite = 0;
+	numWhite = 0;
 	int whiteBool = 0;
 	int error = 0;
+	numRed = 0;
 	for(int i=1; i<320; i++){
 		char white = get_pixel(230,i,3);
+		char red = get_pixel(230,i,3);
 		if(white>threshold){
 			whiteBool = 1;
 			numWhite++;
@@ -53,24 +67,23 @@ int colourCamera(){
 		else {
 			whiteBool = 0;
 		}
-		error = error+whiteBool*(i-160);
-		double p_signal = error*kp;
-			
-		//motor(p_signal, numWhite);
+		if(red>threshold){
+			numRed++;
+		}
+		error = error+whiteBool*(i-160);		
 	}
+	double p_signal = error*kp;
 	return p_signal;
 }
 
+// The first function to run when the code starts.
 int main(){
 	init();
-	while(true){
-		int gateDone = gateOpener();
-		if(gateDone = 1){
-			break;
-		}
+	gateOpener(); // open the gate.
+	while(numRed<250){
+		double error = colourCamera(); // retrieve error value
+		motor(error); // control the motors.
 	}
-	while(true){
-		double error = colourCamera();
-		motor(error);
-	}
+	set_motor(1,0);
+	set_motor(2,0);
 }
