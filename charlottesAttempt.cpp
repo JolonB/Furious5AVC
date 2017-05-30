@@ -81,9 +81,11 @@ return;
 }
 
 void quadFour(){
-
-
-
+	while(true){
+		
+		set_motor(2,-sp);
+		set_motor(1,-sp);
+	}
 }
 
 int main(){
