@@ -38,7 +38,7 @@ int gateOpener(){
 }
 
 
-int colourCamera(){
+void colourCamera(){
 	int threshold = 100;
 	while(true){
 		take_picture();
@@ -48,7 +48,13 @@ int colourCamera(){
 		int error = 0;
 		for(int i=1; i<320; i++){ // perhaps we could change the number of pixels it detects in the first quadrant to prevent it detecting the wrong line
 			char white = get_pixel(230,i,3);
-			if(white>threshold){
+			char red = get_pixel(230,160,0);
+			char green = get_pixel(230,160,1);
+			if(red > 180 && green < 80){
+				return;
+			}
+			
+			else if(white>threshold){
 				whiteBool = 1;
 				numWhite++;
 				if(debug){
@@ -71,11 +77,18 @@ int colourCamera(){
 			display_picture(0,500000);
 		}
 	}
-return 0;
+return;
+}
+
+void quadFour(){
+
+
+
 }
 
 int main(){
 	init();
 	gateOpener();
 	colourCamera();
+	quadFour();
 }
