@@ -57,7 +57,6 @@ void colourCamera(){
 			}
 			else {
 				whiteBool = 0;
-				if(debug){
 			}
 			error = error+whiteBool*(i-160);
 			double p_signal = error*kp;
