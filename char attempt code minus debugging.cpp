@@ -6,14 +6,12 @@ float kp =0.3; // figure out a good value. 0.5 kind of worked
 float ki = 0;
 float kd = 0;
 float sp = 50;
-bool debug = false; // set to true to debug
 
 int motor(int err, int x){
 	int speed = 100*err/12880;
 	if(x<10){
 	set_motor(1, sp);
 	set_motor(2, sp);
-//	sleep1(0,500);
 	}
 	else if(err>=0){
 	set_motor(2,-(sp+speed)); //left motor
@@ -42,7 +40,6 @@ void colourCamera(){
 	int threshold = 100;
 	while(true){
 		take_picture();
-		//int sumThreshold = 0;
 		int numWhite = 0;
 		int whiteBool = 0;
 		int error = 0;
@@ -57,24 +54,14 @@ void colourCamera(){
 			else if(white>threshold){
 				whiteBool = 1;
 				numWhite++;
-				if(debug){
-					set_pixel(230, i, 0, 255, 0);
-				}
 			}
 			else {
 				whiteBool = 0;
 				if(debug){
-					set_pixel(230, i, 255, 0, 0);
-				}
 			}
-			//sumThreshold = sumThreshold+white;
 			error = error+whiteBool*(i-160);
 			double p_signal = error*kp;
 			motor(p_signal, numWhite);
-		}
-		//threshold = sumThreshold/320;
-		if(debug){
-			display_picture(0,500000);
 		}
 	}
 return;
@@ -82,7 +69,6 @@ return;
 
 void quadFour(){
 	while(true){
-		
 		set_motor(2,-sp);
 		set_motor(1,-sp);
 	}
